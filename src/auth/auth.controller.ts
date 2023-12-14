@@ -4,10 +4,11 @@ import {AuthService} from "./auth.service";
 import {Tokens} from "./interfaces";
 import {ConfigService} from "@nestjs/config";
 import {Response} from "express";
-import {Cookie, UserAgent} from "@common/decorators";
+import {Cookie, Public, UserAgent} from "@common/decorators";
 
 const REFRESH_TOKEN = "refreshtoken";
 
+@Public()
 @Controller("auth")
 export class AuthController {
   constructor(
