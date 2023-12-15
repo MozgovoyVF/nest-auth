@@ -19,5 +19,8 @@ export class UserResponse implements User {
   }
 
   @Exclude()
+  isBlocked: boolean;
+
+  @Exclude()
   provider: $Enums.Provider;
 }

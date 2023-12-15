@@ -22,9 +22,10 @@ export class UserService {
     const savedUser = await this.prismaService.user.upsert({
       where: {email: user.email},
       update: {
-        password: hashedPassword,
-        provider: user?.provider,
-        roles: user.roles,
+        password: hashedPassword ?? undefined,
+        provider: user?.provider ?? undefined,
+        roles: user?.roles ?? undefined,
+        isBlocked: user?.isBlocked ?? undefined,
       },
       create: {
         email: user.email,
@@ -40,7 +41,7 @@ export class UserService {
     return savedUser;
   }
 
-  async findOne(idOrEmail: string, isReset: boolean = false) {
+  async findOne(idOrEmail: string, isReset: boolean = false): Promise<User> {
     if (isReset) {
       await this.cacheManager.del(idOrEmail);
     }
